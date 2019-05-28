@@ -2,15 +2,19 @@ import java.io.File
 
 fun main(args: Array<String>) {
     val dlDistance = DamerauLevenshteinDistance()
-    val dictionary = File("dictionary.txt").readLines()
+    val dictionary = File("words.txt").readLines()
 
 
-    var bestScore = Double.POSITIVE_INFINITY
-    var bestString = ""
+    var bestScore: Double
+    var bestString: String
 
-    val str = readLine()
+    var str = readLine()
     while (str != null) {
+        bestScore = Double.POSITIVE_INFINITY
+        bestString = ""
         for (word in dictionary) {
+            if (word == "")
+                continue
             val newScore = dlDistance.compute(str, word)
 
             if (newScore < bestScore) {
@@ -26,5 +30,6 @@ fun main(args: Array<String>) {
         } else {
             println("Incorrect, did you mean $bestString?")
         }
+        str = readLine()
     }
 }
